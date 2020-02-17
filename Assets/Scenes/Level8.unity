@@ -2457,5 +2457,10 @@ PrefabInstance:
       propertyPath: Unpaired
       value: 
       objectReference: {fileID: 1757388395}
+    - target: {fileID: 7864787011690458269, guid: bcfe76c0d27f1cd4e804c5acea5b2d6e,
+        type: 3}
+      propertyPath: canvas
+      value: 
+      objectReference: {fileID: 113602947}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bcfe76c0d27f1cd4e804c5acea5b2d6e, type: 3}
