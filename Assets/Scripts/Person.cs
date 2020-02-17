@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Person : MonoBehaviour
 {
+    private GameController gameCtrl;
     public GameObject Couple;
     private GameObject OverCouple;
     private int Affinity = 0;
@@ -19,6 +20,7 @@ public class Person : MonoBehaviour
     private AudioSource ASource;
     public AudioClip[] AClips;
     void Awake(){
+        gameCtrl = GameObject.Find("GameController").GetComponent<GameController>();
         Couple = null;
         Animator = this.GetComponent<Animator>();
         Layers = LayerMask.GetMask("Person");
@@ -105,7 +107,8 @@ public class Person : MonoBehaviour
         }else{
             Animator.Play("SingleAnimation");
             SingleShadow.SetActive(true);
-        }
+        }        
+        gameCtrl.CheckIfAtLeastOneCouple();
     }
 
     private void CheckOutOfScreen(){

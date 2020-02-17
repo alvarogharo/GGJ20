@@ -26,6 +26,7 @@ public class GameController : MonoBehaviour
     public GameObject Person;
     public List<GameObject> People;
     public Animator EndGamePopUp;
+    public CanvasController canvas;
     public Text HapinessPercentage;
     public Text Unpaired;
     public Text NewDay;
@@ -116,6 +117,7 @@ public class GameController : MonoBehaviour
 
 
     public void FinishRound(){
+        canvas.NewDayShown(false);
         FindObjectOfType<SoundtrackDDOL>().PlayClick();
         //All information is picked by gamecontroller
         int TotalAffinity = 0;
@@ -151,7 +153,7 @@ public class GameController : MonoBehaviour
 
         int nonCoupledPopulation = GP - CP - CountCurrentUncoupled();
 
-        int peopleToSpawn = TempList.Count > nonCoupledPopulation ? nonCoupledPopulation: TempList.Count;
+        int peopleToSpawn = TempList.Count > nonCoupledPopulation ? nonCoupledPopulation : TempList.Count;
 
         int MaxHapiness = (GP * Constants.MaxAffinity) / 2;
         HappinessPercentageValue = (TA * 100) / MaxHapiness;
@@ -239,5 +241,10 @@ public class GameController : MonoBehaviour
 
     private int CountCurrentUncoupled(){
         return People.FindAll((person) => !person.GetComponent<Person>().HasCouple()).Count;
+    }
+
+    public void CheckIfAtLeastOneCouple() {
+        bool atLeastOnecouple = People.FindAll((person) => !person.GetComponent<Person>().HasCouple()).Count < 10;
+        canvas.NewDayShown(atLeastOnecouple);
     }
 }
