@@ -10,6 +10,7 @@ public class Person : MonoBehaviour
     private GameObject OverCouple;
     private int Affinity = 0;
     private bool Clicked = false;
+    public bool finishedAnimation = false;
     private Animator Animator;
     private int Layers; //layer of people
     private Transform UIMask;
@@ -107,7 +108,7 @@ public class Person : MonoBehaviour
         }else{
             Animator.Play("SingleAnimation");
             SingleShadow.SetActive(true);
-        }        
+        }
         gameCtrl.CheckIfAtLeastOneCouple();
     }
 
@@ -156,6 +157,7 @@ public class Person : MonoBehaviour
     }
 
     public void DoBreakUp(){
+        finishedAnimation = false;
         SingleShadow.SetActive(true);
         CoupleShadow.SetActive(false);
         Couple = null;
@@ -222,7 +224,9 @@ public class Person : MonoBehaviour
         ASource.Play();
     }
 
-    public void PlayAffinity(){
+    public void PlayAffinity() {
+        finishedAnimation = true;
+        gameCtrl.CheckIfAtLeastOneCouple();
         if(Affinity < 10){
             ASource.clip = AClips[5];
         }

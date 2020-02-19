@@ -245,6 +245,7 @@ public class GameController : MonoBehaviour
 
     public void CheckIfAtLeastOneCouple() {
         bool atLeastOnecouple = People.FindAll((person) => !person.GetComponent<Person>().HasCouple()).Count < 10;
-        canvas.NewDayShown(atLeastOnecouple);
+        bool atLeastOneHasFinishedAnim =  People.FindAll((person) => !person.GetComponent<Person>().finishedAnimation).Count < 10;
+        canvas.NewDayShown(atLeastOnecouple && atLeastOneHasFinishedAnim);
     }
 }
