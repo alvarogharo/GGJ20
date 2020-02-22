@@ -9,6 +9,7 @@ public class MainMenuController : MonoBehaviour
 
     public Animator ResetPopUpAnimator;
     public Animator ContactPopUpAnimator;
+    public Animator PopUpBackdropAnimator;
 
     public Text PopulationCounter;
     public Text Unpaired;
@@ -68,11 +69,14 @@ public class MainMenuController : MonoBehaviour
     public void ShowHideResetPopUp() {
         FindObjectOfType<SoundtrackDDOL>().PlayClick();
         ResetPopUpAnimator.SetTrigger(Constants.HideShowPopUp);
+        PopUpBackdropAnimator.SetTrigger(Constants.HideShowPopUp);
+
     }
 
     public void ShowHideContactPopUp() {
         FindObjectOfType<SoundtrackDDOL>().PlayClick();
         ContactPopUpAnimator.SetTrigger(Constants.HideShowPopUp);
+        PopUpBackdropAnimator.SetTrigger(Constants.HideShowPopUp);
     }
 
     public void ResetPopulation() {
