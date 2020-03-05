@@ -1,3 +1,5 @@
+using System;
+using UnityEngine;
 public static class Constants
  {
     public static readonly string GlobalPopulationKey = "GlobalPopulation";
@@ -9,5 +11,9 @@ public static class Constants
     public static readonly string HideShowPopUp = "hideShowPopUp";
     public static readonly string UnpairedText = "UNPAIRED: "; 
     public static readonly string HideShowHeart = "hideShowHeart";
+
+    //Development constants
+    public static readonly string LevelCreatorKey = "LevelCreator";
+    public static readonly string LevelsPath = Application.dataPath + "/levels.json";
 
  }

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SpawnArea
   - Decor
+  - LevelCreator
   layers:
   - Default
   - TransparentFX
