@@ -26,7 +26,9 @@ public class PersonFunctions
         for(int i = 0; i < attr1.Length; i++) {
             if(attr1[i] == attr2[i]){
                 //Maximum value
-                result = 10;
+                result += 10;
+            }else if ((attr1[i] > 0 && attr2[i] > 0) || (attr1[i] < 0 && attr2[i] < 0)){
+                result += (Mathf.Abs(attr1[i] + attr2[i]) + 3 > 10 ? 10 : Mathf.Abs(attr1[i] + attr2[i]) + 3);
             }else{
                 result += Mathf.Abs(attr1[i] + attr2[i]);
             }
