@@ -18,6 +18,9 @@ public class LevelManager : MonoBehaviour
     //Obtiene un nivel en concreto
     public static Level GetLevel(int index){
         var levels = GetAllLevels();
+        if(index >= levels.Count){
+            return null;
+        }
         return levels[index];
     }
 

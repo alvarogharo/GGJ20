@@ -41,6 +41,14 @@ public class LevelCreatorFunctions : EditorWindow
             {
                 SaveLevel();
             }
+
+            //Botón para cargar niveles
+            if (GUILayout.Button("Delete level"))
+            {
+                if(EditorUtility.DisplayDialog("Aviso de borrado", "Esta acción es irreversible y se borrrará el nivel por completo. ¿Desea continuar?", "Si", "No")){
+                    DeleteLevel();
+                }
+            }
             //Texto para estatus
             EditorGUILayout.LabelField("State: ", _statusText);
          }else{
@@ -74,18 +82,22 @@ public class LevelCreatorFunctions : EditorWindow
          //Se obtiene el nivel a partir del indice
          int.TryParse(_levelIndex, out _currentlevel);
          var level = LevelManager.GetLevel(_currentlevel);
-         //Se instancian los elementos como hijos del padre
-         GameObject atrezzo = GameObject.FindWithTag(Constants.LevelCreatorKey);
-         for (var i  = 0; i < level.items.Count; i++){
-             LevelElement item = level.items[i];
-             string prefabPath = "Prefabs/"+item.prefabName;
-             GameObject instance = Instantiate(Resources.Load(prefabPath, typeof(GameObject)), atrezzo.transform) as GameObject;
-             instance.transform.position = new Vector3(item.positionx, item.positiony, 0f);
+         if(level != null){         
+            //Se instancian los elementos como hijos del padre
+            GameObject atrezzo = GameObject.FindWithTag(Constants.LevelCreatorKey);
+            for (var i  = 0; i < level.items.Count; i++){
+                LevelElement item = level.items[i];
+                string prefabPath = "Prefabs/"+item.prefabName;
+                GameObject instance = Instantiate(Resources.Load(prefabPath, typeof(GameObject)), atrezzo.transform) as GameObject;
+                instance.transform.position = new Vector3(item.positionx, item.positiony, 0f);
+            }
+            //Se actualiza el estado
+            _levelstate = 1;
+            _statusText = "Loaded level "+_currentlevel;
+            Debug.Log("Loaded level "+ _currentlevel);
+         }else{
+            Debug.LogError("There's not level with that index. Try again.");
          }
-         //Se actualiza el estado
-         _levelstate = 1;
-         _statusText = "Loaded level "+_currentlevel;
-         Debug.Log("Loaded level "+ _currentlevel);
      }
 
     //Guarda los datos de los elementos de atrezzo en el JSON
@@ -118,7 +130,20 @@ public class LevelCreatorFunctions : EditorWindow
              LevelManager.SaveLevels(levels);
          }
          Debug.Log("Level saved");
-     }     
+     }  
+
+     //Borra el nivel
+     private void DeleteLevel(){
+         //Si es un nuevo nivel no guardado aun simplemente se reinicia el creador de niveles
+         if(_levelstate == 1){
+             //Si es un nivel ya guardado se elimina del array y se reinicia el creador de niveles
+             var levels = LevelManager.GetAllLevels();
+             levels.RemoveAt(_currentlevel);
+             LevelManager.SaveLevels(levels);
+         }
+         CreateEmptyLevel();
+         Debug.Log("Level deleted");
+     }   
 }
 
 [Serializable]
